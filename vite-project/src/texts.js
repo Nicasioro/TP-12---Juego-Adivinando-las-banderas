@@ -1,0 +1,23 @@
+// Textos de la interfaz. Los acentos estan como escapes \u para que
+// nunca se rompan por un problema de codificacion del archivo.
+export const T = {
+  title: "\u00bfDe qu\u00e9 pa\u00eds es esta bandera?",
+  namePlaceholder: "Tu nombre",
+  play: "Jugar",
+  loading: "Cargando\u2026",
+  loadError: "No se pudieron cargar los pa\u00edses",
+  guessPlaceholder: "Escrib\u00ed o eleg\u00ed un pa\u00eds",
+  guess: "Adivinar",
+  hint: "Pista (-2s)",
+  skip: "Saltear",
+  capitalQuestion: "\u00bfCu\u00e1l es su capital?",
+  correct: "\u00a1Correcto! +",
+  wrong: "Incorrecto, -1",
+  timeout: "Se acab\u00f3 el tiempo. Era: ",
+  ranking: "Ranking",
+  reset: "Reiniciar",
+  points: "puntos",
+  modeFlags: "Banderas",
+  modeCapitals: "Capitales",
+  switchTo: "Cambiar a ",
+};

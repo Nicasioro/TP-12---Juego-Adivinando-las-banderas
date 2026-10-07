@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #0b1626;
+  --card: #12233a;
+  --field: #0e1c30;
+  --line: #26405e;
+  --ink: #eaf1f8;
+  --muted: #8fa5bd;
+  --accent: #3ddbc0;
+  --warn: #ffc83d;
+  --radius: 14px;
+  --display: "Fredoka", "Trebuchet MS", sans-serif;
+  --body: "Inter", system-ui, sans-serif;
+}
+
+/* Reset: pisa los estilos por defecto de la plantilla de Vite */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  display: block;
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% -10%, #17324f, var(--bg) 60%);
+  color: var(--ink);
+  font: 16px/1.5 var(--body);
+}
+#root {
+  display: block;
+  width: auto;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 24px 16px 48px;
+  border: 0;
+  text-align: initial;
+}
+
+/* Tarjeta principal */
+.card {
+  width: min(560px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+.muted { color: var(--muted); text-align: center; }
+
+/* Campos y botones */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+input::placeholder { color: var(--muted); }
+
+.btn {
+  padding: 11px 18px;
+  font: 600 0.95rem var(--body);
+  color: #06201b;
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.15s;
+}
+.btn:hover:not(:disabled) { filter: brightness(1.08); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn--ghost { color: var(--ink); background: transparent; border-color: var(--line); }
+.btn--link {
+  justify-self: center;
+  padding: 4px 8px;
+  color: var(--muted);
+  background: none;
+  text-decoration: underline;
+}
+.btn--option {
+  padding: 14px;
+  color: var(--ink);
+  background: var(--field);
+  border-color: var(--line);
+  font-size: 1rem;
+}
+.btn--option:hover:not(:disabled) { border-color: var(--accent); filter: none; }
+
+:focus-visible { outline: 3px solid var(--warn); outline-offset: 2px; }
+
+/* Login */
+.login__title { margin: 0; font: 600 1.7rem/1.2 var(--display); text-align: center; }
+
+/* Marcador */
+.scoreboard { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.scoreboard__player { display: block; color: var(--muted); font-size: 0.9rem; }
+.scoreboard__value { font: 600 2.4rem/1 var(--display); margin-right: 6px; }
+.scoreboard__unit { color: var(--muted); font-size: 0.9rem; }
+
+/* Timer */
+.timer { position: relative; height: 24px; overflow: hidden; background: var(--field); border-radius: 12px; }
+.timer__bar { height: 100%; background: var(--accent); border-radius: 12px; transition: width 1s linear, background 0.3s; }
+.timer__bar--low { background: var(--warn); }
+.timer__text { position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.8rem; font-weight: 600; }
+
+/* Bandera */
+.flag { margin: 0; display: grid; justify-items: center; gap: 14px; }
+.flag__img {
+  width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+.flag__caption { font: 500 1.35rem var(--display); letter-spacing: 0.12em; text-align: center; min-height: 1.8rem; }
+
+/* Respuestas */
+.guess, .guess__form { display: grid; gap: 12px; }
+.guess__form .btn:first-child { flex: 1; }
+.options { display: grid; gap: 8px; }
+.feedback { min-height: 1.5em; margin: 0; text-align: center; color: var(--warn); font-weight: 500; }
+
+/* Ranking */
+.ranking { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.ranking caption { padding-bottom: 8px; text-align: left; font: 600 1.1rem var(--display); }
+.ranking td { padding: 8px 6px; border-top: 1px solid var(--line); }
+.ranking td:first-child { width: 36px; color: var(--muted); }
+.ranking td:last-child { text-align: right; font-weight: 600; }
+.ranking__me { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .timer__bar, .btn { transition: none; }
+}
