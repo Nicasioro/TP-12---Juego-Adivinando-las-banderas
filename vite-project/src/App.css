@@ -1,32 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Inter:wght@400;500;600&display=swap");
 
 :root {
-  --bg: #0b1626;
-  --card: #12233a;
+  --bg: #292929;
+  --card: #292929;
   --field: #0e1c30;
-  --line: #26405e;
-  --ink: #eaf1f8;
+  --line: #ffd900;
+  --ink: #ffffff;
   --muted: #8fa5bd;
-  --accent: #3ddbc0;
-  --warn: #ffc83d;
+  --accent: #ffd900;
+  --warn: #ffd900;
   --radius: 14px;
   --display: "Fredoka", "Trebuchet MS", sans-serif;
-  --body: "Inter", system-ui, sans-serif;
+  --body: "Inter", Helvetica, Arial, sans-serif;
 }
 
-/* Reset: pisa los estilos por defecto de la plantilla de Vite */
 *, *::before, *::after { box-sizing: border-box; }
+
+html, body { width: 100%; }
+
 body {
   display: block;
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at 50% -10%, #17324f, var(--bg) 60%);
+  background-color: var(--bg);
+  background-image: url("./assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--ink);
   font: 16px/1.5 var(--body);
 }
+.bg2 {
+  background-image: url("./assets/bg2.png");
+}
+
+
 #root {
   display: block;
-  width: auto;
+  width: 100%;
   max-width: none;
   min-height: 0;
   margin: 0;
@@ -35,25 +47,33 @@ body {
   text-align: initial;
 }
 
-/* Tarjeta principal */
+
 .card {
-  width: min(560px, 100%);
+  width: 100%;
+  max-width: 560px;
   margin: 0 auto;
   padding: 24px;
   display: grid;
+  grid-template-columns: minmax(0, 1fr); 
   gap: 18px;
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 5px solid var(--line);
   border-radius: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
 }
+.card > * { min-width: 0; }
 
 .row { display: flex; gap: 8px; flex-wrap: wrap; }
 .muted { color: var(--muted); text-align: center; }
 
-/* Campos y botones */
+
+button, input { font-family: inherit; }
+
 input {
+  display: block;
   width: 100%;
+  max-width: 100%;
   padding: 12px 14px;
   font: inherit;
   color: var(--ink);
@@ -93,47 +113,102 @@ input::placeholder { color: var(--muted); }
 }
 .btn--option:hover:not(:disabled) { border-color: var(--accent); filter: none; }
 
+
+.card button:not([class]) {
+  padding: 11px 18px;
+  font: 600 0.95rem var(--body);
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.card button:not([class]):hover:not(:disabled) { border-color: var(--accent); }
+.card button:not([class]):disabled { opacity: 0.45; cursor: not-allowed; }
+
 :focus-visible { outline: 3px solid var(--warn); outline-offset: 2px; }
 
-/* Login */
-.login__title { margin: 0; font: 600 1.7rem/1.2 var(--display); text-align: center; }
 
-/* Marcador */
+.login {
+  position: fixed;
+  left: 50%;
+  top: 76%;
+  transform: translateX(-50%);
+  width: min(420px, 90vw);
+  margin: 0;
+  padding: 16px;
+  gap: 12px;
+}
+.login input {
+  text-align: center;
+  font-size: 1.05rem;
+}
+.login .btn {
+  font-size: 1.1rem;
+}
+
+
 .scoreboard { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .scoreboard__player { display: block; color: var(--muted); font-size: 0.9rem; }
 .scoreboard__value { font: 600 2.4rem/1 var(--display); margin-right: 6px; }
 .scoreboard__unit { color: var(--muted); font-size: 0.9rem; }
 
-/* Timer */
-.timer { position: relative; height: 24px; overflow: hidden; background: var(--field); border-radius: 12px; }
-.timer__bar { height: 100%; background: var(--accent); border-radius: 12px; transition: width 1s linear, background 0.3s; }
-.timer__bar--low { background: var(--warn); }
-.timer__text { position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.8rem; font-weight: 600; }
+.timer { position: relative; height: 24px; overflow: hidden; border-radius: 12px; }
+.timer__text { position: absolute; inset: 0; display: grid; place-items: center; font-size: 20px; font-weight: 600; }
 
-/* Bandera */
-.flag { margin: 0; display: grid; justify-items: center; gap: 14px; }
+.musica {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+
+.flag { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 14px; }
 .flag__img {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  height: auto;
   max-height: 230px;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
-.flag__caption { font: 500 1.35rem var(--display); letter-spacing: 0.12em; text-align: center; min-height: 1.8rem; }
+.flag__caption {
+  max-width: 100%;
+  min-height: 1.8rem;
+  font: 500 1.35rem var(--display);
+  letter-spacing: 0.12em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
 
-/* Respuestas */
-.guess, .guess__form { display: grid; gap: 12px; }
+
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.guess, .guess__form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .guess__form .btn:first-child { flex: 1; }
 .options { display: grid; gap: 8px; }
 .feedback { min-height: 1.5em; margin: 0; text-align: center; color: var(--warn); font-weight: 500; }
 
-/* Ranking */
-.ranking { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+
+.ranking { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.95rem; }
 .ranking caption { padding-bottom: 8px; text-align: left; font: 600 1.1rem var(--display); }
-.ranking td { padding: 8px 6px; border-top: 1px solid var(--line); }
+.ranking td { padding: 8px 6px; border-top: 1px solid var(--line); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ranking td:first-child { width: 36px; color: var(--muted); }
-.ranking td:last-child { text-align: right; font-weight: 600; }
+.ranking td:last-child { width: 72px; text-align: right; font-weight: 600; }
 .ranking__me { color: var(--accent); }
+
+
+@media (max-width: 480px) {
+  .card { padding: 16px; gap: 14px; border-width: 4px; }
+  .flag__caption { font-size: 1.1rem; letter-spacing: 0.08em; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .timer__bar, .btn { transition: none; }

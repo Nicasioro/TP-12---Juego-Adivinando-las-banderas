@@ -2,7 +2,7 @@ import { useGame } from "../context/GameContext";
 import { T } from "../texts";
 
 export default function Flag() {
-  const { current, mode, revealed } = useGame();
+  const { current, revealed } = useGame();
   if (!current) return <p className="muted">{T.loading}</p>;
 
   const mask = [...current.name]
@@ -10,11 +10,9 @@ export default function Flag() {
     .join(" ");
 
   return (
-    <figure className="flag">
-      <img className="flag__img" src={current.flag} alt="" />
-      <figcaption className="flag__caption">
-        {mode === "flag" ? mask : T.capitalQuestion}
-      </figcaption>
+    <figure className="postcard">
+      <img className="postcard__img" src={current.flag} alt="" />
+      <figcaption className="postcard__mask">{mask}</figcaption>
     </figure>
   );
 }

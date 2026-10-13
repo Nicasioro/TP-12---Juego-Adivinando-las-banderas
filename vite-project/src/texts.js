@@ -1,5 +1,3 @@
-// Textos de la interfaz. Los acentos estan como escapes \u para que
-// nunca se rompan por un problema de codificacion del archivo.
 export const T = {
   title: "\u00bfDe qu\u00e9 pa\u00eds es esta bandera?",
   namePlaceholder: "Tu nombre",

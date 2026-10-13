@@ -13,7 +13,6 @@ export default function PlayerForm() {
 
   return (
     <form className="card login" onSubmit={submit}>
-      <h1 className="login__title">{T.title}</h1>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}

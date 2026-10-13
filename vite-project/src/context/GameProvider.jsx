@@ -20,9 +20,9 @@ const loadBoard = () => {
 export function GameProvider({ children }) {
   const [countries, setCountries] = useState([]);
   const [current, setCurrent] = useState(null);
-  const [mode, setMode] = useState("flag"); // "flag" | "capital"
+  const [mode, setMode] = useState("flag"); 
   const [player, setPlayer] = useState("");
-  const [board, setBoard] = useState(loadBoard); // { nombre: puntos }
+  const [board, setBoard] = useState(loadBoard);
   const [timeLeft, setTimeLeft] = useState(TIME);
   const [revealed, setRevealed] = useState([]);
   const [options, setOptions] = useState([]);
@@ -32,7 +32,7 @@ export function GameProvider({ children }) {
   const score = board[player] ?? 0;
   const answer = current ? (mode === "flag" ? current.name : current.capital) : "";
 
-  // Traer paises y capitales al montar
+
   useEffect(() => {
     Promise.all([
       fetch(`${API}/flag/images`).then((r) => r.json()),
@@ -50,15 +50,15 @@ export function GameProvider({ children }) {
         pickCountry(list, "flag");
       })
       .catch(() => setError(T.loadError));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
-  // Persistir ranking
+
   useEffect(() => {
     localStorage.setItem("board", JSON.stringify(board));
   }, [board]);
 
-  // Timer: -1 por segundo. En 0 resta 1 punto y pasa a la siguiente.
+ 
   useEffect(() => {
     if (!current || !player) return;
     if (timeLeft <= 0) {
@@ -69,10 +69,9 @@ export function GameProvider({ children }) {
     }
     const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000);
     return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [timeLeft, current, player]);
 
-  // Modo capitales: cada 5s se elimina una opcion incorrecta
   useEffect(() => {
     const elapsed = TIME - timeLeft;
     if (mode !== "capital" || elapsed === 0 || elapsed % 5 !== 0) return;
@@ -82,7 +81,7 @@ export function GameProvider({ children }) {
       const out = rand(wrong);
       return o.filter((x) => x !== out);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [timeLeft]);
 
   function pickCountry(list = countries, m = mode) {
@@ -106,7 +105,7 @@ export function GameProvider({ children }) {
   function guess(text) {
     if (!current) return;
     if (norm(text) === norm(answer)) {
-      const gained = 10 + timeLeft; // los segundos que quedan suman
+      const gained = 10 + timeLeft; 
       addPoints(gained);
       setFeedback(T.correct + gained);
       nextCountry();
@@ -116,7 +115,7 @@ export function GameProvider({ children }) {
     }
   }
 
-  // Pista: revela una letra al azar y descuenta 2 segundos
+
   function hint() {
     if (mode !== "flag" || !current) return;
     const free = [...current.name]
