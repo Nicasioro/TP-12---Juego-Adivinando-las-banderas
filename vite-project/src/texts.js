@@ -1,7 +1,7 @@
 export const T = {
   title: "\u00bfDe qu\u00e9 pa\u00eds es esta bandera?",
-  namePlaceholder: "Tu nombre",
-  play: "Jugar",
+  namePlaceholder: "Como te llamas wachin!",
+  play: "Banderingas",
   loading: "Cargando\u2026",
   loadError: "No se pudieron cargar los pa\u00edses",
   guessPlaceholder: "Escrib\u00ed o eleg\u00ed un pa\u00eds",
