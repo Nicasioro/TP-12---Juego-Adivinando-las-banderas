@@ -17,10 +17,20 @@ const loadBoard = () => {
   }
 };
 
+// Traduce el nombre del país al español usando el código ISO2 (ej: "DO" -> "República Dominicana")
+const regionNames = new Intl.DisplayNames(["es"], { type: "region" });
+const toSpanish = (iso2, fallback) => {
+  try {
+    return (iso2 && regionNames.of(iso2.toUpperCase())) || fallback;
+  } catch {
+    return fallback;
+  }
+};
+
 export function GameProvider({ children }) {
   const [countries, setCountries] = useState([]);
   const [current, setCurrent] = useState(null);
-  const [mode, setMode] = useState("flag"); 
+  const [mode, setMode] = useState("flag");
   const [player, setPlayer] = useState("");
   const [board, setBoard] = useState(loadBoard);
   const [timeLeft, setTimeLeft] = useState(TIME);
@@ -42,9 +52,12 @@ export function GameProvider({ children }) {
         const caps = c.data || [];
         const list = f.data.map((x) => ({
           ...x,
+          // el capital se busca con el nombre original (inglés), antes de traducir
           capital: caps.find(
             (k) => k.iso2 === x.iso2 || norm(k.name) === norm(x.name)
           )?.capital,
+          nameEn: x.name,
+          name: toSpanish(x.iso2, x.name),
         }));
         setCountries(list);
         pickCountry(list, "flag");
@@ -104,7 +117,11 @@ export function GameProvider({ children }) {
 
   function guess(text) {
     if (!current) return;
-    if (norm(text) === norm(answer)) {
+    // en modo bandera también se acepta el nombre en inglés
+    const ok =
+      norm(text) === norm(answer) ||
+      (mode === "flag" && norm(text) === norm(current.nameEn));
+    if (ok) {
       const gained = 10 + timeLeft; 
       addPoints(gained);
       setFeedback(T.correct + gained);
