@@ -2,13 +2,13 @@
 
 :root {
   --bg: #292929;
-  --card: #292929;
-  --field: #0e1c30;
-  --line: #ffd900;
+  --card: #000000;
+  --field: #000000;
+  --line: #5299e6;
   --ink: #ffffff;
   --muted: #8fa5bd;
-  --accent: #ffd900;
-  --warn: #ffd900;
+  --accent: #8fa5bd;
+  --warn: #8fa5bd;
   --radius: 14px;
   --display: "Fredoka", "Trebuchet MS", sans-serif;
   --body: "Inter", Helvetica, Arial, sans-serif;
@@ -199,7 +199,7 @@ input::placeholder { color: var(--muted); }
 
 
 .ranking { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.95rem; }
-.ranking caption { padding-bottom: 8px; text-align: left; font: 600 1.1rem var(--display); }
+.ranking caption { padding-bottom: 8px; text-align: left; font: 600 1.1rem var(); }
 .ranking td { padding: 8px 6px; border-top: 1px solid var(--line); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ranking td:first-child { width: 36px; color: var(--muted); }
 .ranking td:last-child { width: 72px; text-align: right; font-weight: 600; }
